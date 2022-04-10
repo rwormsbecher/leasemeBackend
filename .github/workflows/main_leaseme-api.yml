@@ -28,7 +28,19 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install alembic
+          pip install -r requirements.txt
+
+      - name: Run Alembic migrations
+        env:
+          database_name: ${{ secrets.DATABASE_NAME }}
+          db_password: ${{ secrets.DB_PASSWORD }}
+          db_server_port: ${{ secrets.DB_SERVER_PORT }}
+          db_username: ${{ secrets.DB_USERNAME }}
+          host_server: ${{ secrets.HOST_SERVER }}
+        run: |
+          alembic upgrade head
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
