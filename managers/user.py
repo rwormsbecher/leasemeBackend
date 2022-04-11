@@ -4,7 +4,7 @@ from starlette.exceptions import HTTPException
 
 from db import database
 from managers.auth import AuthManager
-from models import user
+from models import user, counterparty
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -12,6 +12,11 @@ class UserManager:
     @staticmethod
     async def register(user_data):
         user_data["password"] = pwd_context.hash(user_data["password"])
+
+        counterparty_entry = await database.fetch_one(counterparty.select().where(counterparty.c.id == user_data["counterparty_id"]))
+
+        if not counterparty_entry:
+            raise HTTPException(400, "CounterParty does not exist")
 
         try:
             id_ = await database.execute(user.insert().values(**user_data))
