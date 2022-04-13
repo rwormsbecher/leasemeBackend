@@ -2,7 +2,7 @@ import sqlalchemy
 
 from db import metadata
 
-invoice_supplier_Detail = sqlalchemy.table(
+invoice_supplier_Detail = sqlalchemy.Table(
     "invoicesupplierdetails",
     metadata,
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
