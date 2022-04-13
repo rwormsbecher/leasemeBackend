@@ -4,16 +4,18 @@ from starlette.exceptions import HTTPException
 
 from db import database
 from managers.auth import AuthManager
-from models import user, counterparty
+from models import user, counterparty, RoleType
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 class UserManager:
     @staticmethod
     async def register(user_data):
         user_data["password"] = pwd_context.hash(user_data["password"])
 
-        counterparty_entry = await database.fetch_one(counterparty.select().where(counterparty.c.id == user_data["counterparty_id"]))
+        counterparty_entry = await database.fetch_one(
+            counterparty.select().where(counterparty.c.id == user_data["counterparty_id"]))
 
         if not counterparty_entry:
             raise HTTPException(400, "CounterParty does not exist")
@@ -34,3 +36,4 @@ class UserManager:
         elif not pwd_context.verify(user_data["password"], user_entry["password"]):
             raise HTTPException(400, "Wrong email or password")
         return AuthManager.encode_token(user_entry)
+
