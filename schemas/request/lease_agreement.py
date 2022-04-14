@@ -33,11 +33,11 @@ class BaseLeaseAgreement(BaseModel):
 
         raise ValueError("Total amount must be a positive number")
 
-    @validator("reserved_amount")
-    def validate_total_reserved_value(cls, v, values):
-        if values["total_amount"] >= v:
-            return v
-
-        raise ValueError("Total amount must be bigger than reserved amount")
+    # @validator("reserved_amount")
+    # def validate_total_reserved_value(cls, v, values):
+    #     if values["total_amount"] >= v:
+    #         return v
+    #
+    #     raise ValueError("Total amount must be bigger than reserved amount")
 
 

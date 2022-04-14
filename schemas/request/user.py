@@ -16,8 +16,6 @@ class BaseUser(BaseModel):
             raise ValueError("Invalid email")
 
 
-
-
 class UserRegisterIn(BaseUser):
     password: str
     phone: str
@@ -38,8 +36,7 @@ class UserRegisterIn(BaseUser):
         except ValueError:
             raise ValueError("Phone can only consist out of numers and a '+' sign")
 
-
-
 class UserLoginIn(BaseUser):
     password: str
+
 
