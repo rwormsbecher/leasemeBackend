@@ -30,6 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install alembic
+          pip install email-validator
           pip install -r requirements.txt
 
       - name: Run Alembic migrations
