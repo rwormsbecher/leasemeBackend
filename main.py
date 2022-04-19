@@ -12,6 +12,7 @@ app.include_router(api_router)
 
 origins = [
     "http://localhost:3000",
+    "http://leaseme-frontend.azurewebsites.net"
 ]
 
 app.add_middleware(
